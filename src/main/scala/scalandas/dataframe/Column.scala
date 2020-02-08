@@ -1,6 +1,6 @@
 package scalandas.dataframe
 
-class Column(name: String, position: Int, valueType: ValueType) {
+case class Column(name: String, position: Int, valueType: ValueType, nullable: Boolean) {
 
   def getTypeAsString: String = valueType.valueTypeName
 }
