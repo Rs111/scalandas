@@ -1,8 +1,10 @@
 package scalandas.dataframe
 
 import scala.concurrent
+import scalandas.dataframe.conversion.ImplicitConverters._
+import scalandas.dataframe.types.Schema
 
-sealed class DataFrame(schema: Schema, rows: Array[Row]) {
+class DataFrame private (schema: Schema, rows: Array[Row]) {
 
   def withColumn() = ???
 }
@@ -14,29 +16,24 @@ object DataFrame {
     new DataFrame(schema, rows.toArray)
   }
 
-  private def checkSchemaAgainstRows(schema: Schema, rows: Array[Row]): Unit = {
+  private def checkSchemaAgainstRows(schema: Schema, rows: Array[Row]): Unit = { //TODO use validation class
 
-    rows
-      .
-
+    rows.foreach(row => checkSchemaAgainstOneRow(schema, row))
   }
 
-  private def checkSchemaAgainstOneRow(schema: Schema, row: Row): Boolean = {
-
-    val columnArray = schema.toArray
+  private def checkSchemaAgainstOneRow(schema: Schema, row: Row): Unit = { //TODO use validation class
 
     row
       .toArray
-      .zipWithIndex
-      .map {
-        case (value: Any, position: Int) => {
-          val columnType = columnArray(position).valueType
-
-          value match {
-
-          }
-        }
+      .zip(schema.toArray)
+      .foreach{
+        case (value, column) => throwIfFalse(value.toDataType == column.getDataType)
       }
+  }
 
+  private def throwIfFalse(b: Boolean): Boolean = {
+
+    if (b) true
+    else throw new RuntimeException("") //TODO use validation class
   }
 }
