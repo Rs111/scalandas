@@ -2,14 +2,11 @@ package scalandas.dataframe
 
 class Row private (values: Array[Any]) extends Serializable {
 
-  // apply
- // def apply(name: String): Any = this.values
   def apply(i: Int): Any = this.values(i)
 
   // descriptive
-  def size: Long = this.values.length
+  def length: Int = this.values.length
 
-  // manipulate
   def map = ???
   def flatMap = ???
   def filter = ???
@@ -17,13 +14,12 @@ class Row private (values: Array[Any]) extends Serializable {
 
   // get
   def toArray: Array[Any] = this.values
-
-
 }
 
 
 object Row {
 
+  def apply(values: Array[Any]): Row = new Row(values)
   def apply(values: Any*): Row = new Row(values.toArray)
 
 //  private def zipValueWithIndex(arr: Array[Any]): Array[(String, Any)] = {

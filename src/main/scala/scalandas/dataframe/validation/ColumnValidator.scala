@@ -43,7 +43,7 @@ private[dataframe] sealed trait ColumnValidator {
     else position.validNec
   }
 
-  sealed trait ColumnDomainValidation extends HasErrorMessage
+  sealed trait ColumnDomainValidation extends HasErrorMessage //TODO move this out of trait
 
   case object ColumnNameIsNull extends ColumnDomainValidation {
     def errorMessage: String = "'ColumnNameIsNull: name parameter is null'"

@@ -25,7 +25,7 @@ private[dataframe] sealed trait SchemaValidator {
     else columns.validNec
   }
 
-  sealed trait SchemaDomainValidation extends HasErrorMessage
+  sealed trait SchemaDomainValidation extends HasErrorMessage //TODO move this out of trait
 
   case class SchemaColumnNamesDuplicates(s: String) extends SchemaDomainValidation {
     def errorMessage: String = s"'schema contains duplicate columns: $s'"
