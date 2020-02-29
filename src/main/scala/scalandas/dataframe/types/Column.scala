@@ -2,7 +2,7 @@ package scalandas.dataframe.types
 
 //https://blog.ssanj.net/posts/2019-08-18-using-validated-for-error-accumulation-in-scala-with-cats.html
 import scalandas.dataframe.types.Types.DataType
-import scalandas.dataframe.validation.ColumnValidatorNec
+import scalandas.dataframe.validation.ColumnValidator
 import scalandas.dataframe.validation.ValidationOps._
 
 
@@ -21,7 +21,7 @@ object Column {
   implicit val className: String = "Column"
 
   def apply(name: String, position: Int, dataType: DataType, nullable: Boolean): Column = {
-    ColumnValidatorNec
+    ColumnValidator
       .validateColumn(name, position, dataType, nullable)
       .getValidationOutput
   }

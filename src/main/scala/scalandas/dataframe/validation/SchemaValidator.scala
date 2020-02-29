@@ -4,7 +4,7 @@ import cats.data.ValidatedNec
 import cats.implicits._
 import scalandas.dataframe.types.{Column, Schema}
 
-private[dataframe] sealed trait SchemaValidatorNec {
+private[dataframe] sealed trait SchemaValidator {
 
   type ValidationResult[A] = ValidatedNec[SchemaDomainValidation, A]
 
@@ -32,4 +32,4 @@ private[dataframe] sealed trait SchemaValidatorNec {
   }
 }
 
-object SchemaValidatorNec extends SchemaValidatorNec
+object SchemaValidator extends SchemaValidator

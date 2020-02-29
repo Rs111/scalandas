@@ -5,7 +5,7 @@ import cats.implicits._
 import scalandas.dataframe.types.Column
 import scalandas.dataframe.types.Types.DataType
 
-private[dataframe] sealed trait ColumnValidatorNec {
+private[dataframe] sealed trait ColumnValidator {
 
   type ValidationResult[A] = ValidatedNec[ColumnDomainValidation, A]
 
@@ -62,7 +62,7 @@ private[dataframe] sealed trait ColumnValidatorNec {
   }
 }
 
-object ColumnValidatorNec extends ColumnValidatorNec
+object ColumnValidator extends ColumnValidator
 
 
 
