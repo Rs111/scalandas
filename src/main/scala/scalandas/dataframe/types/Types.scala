@@ -19,7 +19,7 @@ import scala.reflect.ClassTag
 
 object Types {
 
-  sealed class DataType private (val typeName: String)
+private[dataframe] sealed class DataType private (val typeName: String)
 
   object DataType {
 
