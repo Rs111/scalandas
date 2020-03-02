@@ -1,6 +1,6 @@
 package scalandas.dataframe
 
-class Row private (values: Array[Any]) extends Serializable {
+class Row private[dataframe] (values: Array[Any]) extends Serializable {
 
   def apply(i: Int): Any = this.values(i)
 

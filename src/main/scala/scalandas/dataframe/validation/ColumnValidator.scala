@@ -3,18 +3,17 @@ package scalandas.dataframe.validation
 import cats.data.ValidatedNec
 import cats.implicits._
 import scalandas.dataframe.types.Column
-import scalandas.dataframe.types.Types.DataType
 
-private[dataframe] sealed trait ColumnValidator {
-
-  type ValidationResult[A] = ValidatedNec[ColumnDomainValidation, A]
+private[dataframe] sealed trait ColumnValidator extends AbstractValidator {
 
   private val invalidCharacters = "[:;.`,(){}\\[\\]|\n=\t*%&\b@#!~^<>?/\"' ]" //TODO add backslash; change logic, make blacklist
   private val columnLimit = 10000
 
-  def validateColumn(name: String, position: Int, dataType: DataType, nullable: Boolean): ValidationResult[Column] = {
-    (validateName(name), validatePosition(position))
-      .mapN { case _ => new Column(name, position, dataType, nullable)}
+  override type ValidationResult[A] = ValidatedNec[ColumnDomainValidation, A]
+
+  override def validate[I <: ColumnValidatorInput](input: I): ValidationResult[Column] = {
+    (validateName(input.name), validatePosition(input.position))
+      .mapN { case _ => new Column(input.name, input.position, input.dataType, input.nullable)}
   }
 
   private def validateName(name: String): ValidationResult[String] = { //TODO return refinement of string
@@ -43,7 +42,7 @@ private[dataframe] sealed trait ColumnValidator {
     else position.validNec
   }
 
-  sealed trait ColumnDomainValidation extends HasErrorMessage //TODO move this out of trait
+  sealed trait ColumnDomainValidation extends AbstractDomainValidation with HasErrorMessage
 
   case object ColumnNameIsNull extends ColumnDomainValidation {
     def errorMessage: String = "'ColumnNameIsNull: name parameter is null'"
@@ -63,23 +62,3 @@ private[dataframe] sealed trait ColumnValidator {
 }
 
 object ColumnValidator extends ColumnValidator
-
-
-
-/*
-  private def validateName(name: String): ValidationResult[String] = { //TODO return refinement of string
-    if (name == null) ColumnNameIsNull.invalidNec
-    else {
-      lazy val nameContainsInvalidChars = invalidCharacters.r.findFirstIn(name).isDefined
-      lazy val nameContainsUpperCaseChars = "[A-Z]".r.findFirstIn(name).isDefined
-      if (nameContainsInvalidChars & !nameContainsUpperCaseChars)
-        ColumnNameContainsInvalidCharacters.invalidNec
-      else if (!nameContainsInvalidChars & nameContainsUpperCaseChars)
-        ColumnNameContainsUpperCaseCharacters.invalidNec
-      else if (nameContainsInvalidChars & nameContainsUpperCaseChars)
-        Semigroup[ValidationResult[String]]
-          .combine(ColumnNameContainsInvalidCharacters.invalidNec, ColumnNameContainsUpperCaseCharacters.invalidNec)
-      else name.validNec
-    }
-  }
- */

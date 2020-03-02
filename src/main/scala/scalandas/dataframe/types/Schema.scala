@@ -1,6 +1,6 @@
 package scalandas.dataframe.types
 
-import scalandas.dataframe.validation.SchemaValidator
+import scalandas.dataframe.validation.{SchemaValidator, SchemaValidatorInput}
 import scalandas.dataframe.validation.ValidationOps._
 
 class Schema private[dataframe] (columns: Array[Column]) {
@@ -22,7 +22,7 @@ object Schema {
 
   def apply(columns: Array[Column]): Schema = {
     SchemaValidator
-      .validateSchema(columns)
+      .validate(new SchemaValidatorInput(columns))
       .getValidationOutput
   }
 
