@@ -1,6 +1,6 @@
-package scalandas.dataframe.conversion
+package scalandas.sql.conversion
 
-import scalandas.dataframe.types.Types.DataType
+import scalandas.sql.types.Types.DataType
 
 
 private[scalandas] object ImplicitConverters {

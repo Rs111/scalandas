@@ -1,4 +1,4 @@
-package scalandas.dataframe.types
+package scalandas.sql.types
 
 import scala.reflect.ClassTag
 // https://docs.scala-lang.org/overviews/scala-book/case-objects.html
@@ -19,7 +19,7 @@ import scala.reflect.ClassTag
 
 object Types {
 
-  private[dataframe] sealed class DataType private (val typeName: String)
+  private[sql] sealed class DataType private(val typeName: String)
 
   object DataType {
 

@@ -1,11 +1,11 @@
-package scalandas.dataframe.validation
+package scalandas.sql.validation
 
 import cats.data.Validated.{Invalid, Valid}
 import cats.data.ValidatedNec
 
-private[dataframe] object ValidationOps {
+private[sql] object ValidationOps {
 
-  implicit class ValidatedNecOps[E <: HasErrorMessage, A](input: ValidatedNec[E, A]) {
+  implicit class ValidatedNecOps[E <: AbstractDomainValidation with HasErrorMessage, A](input: ValidatedNec[E, A]) {
 
     def getValidationOutput(implicit className: String): A = {
       input match {

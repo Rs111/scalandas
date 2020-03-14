@@ -1,4 +1,4 @@
-package scalandas.dataframe.validation
+package scalandas.sql.validation
 
 private[validation] trait HasErrorMessage {
   def errorMessage: String
