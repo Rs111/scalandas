@@ -9,6 +9,8 @@ class Schema private[sql](fields: Array[Field]) {
     this(Array[Field]())
   }
 
+  override def toString: String = s"Schema(${fields.mkString(", ")})"
+
   def apply(i: Int): Field = fields(i)
 
   def add(field: Field): Schema = Schema.apply(this.fields :+ field)

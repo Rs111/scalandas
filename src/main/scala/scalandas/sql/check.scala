@@ -1,7 +1,6 @@
 package scalandas.sql
 
 import scalandas.sql.types.Types.DataType
-import scalandas.sql.conversion.ImplicitConverters._
 import scalandas.sql.DataFrame
 import cats.data.Validated.{Invalid, Valid}
 import scalandas.sql.types.{Field, Schema}
@@ -60,10 +59,13 @@ object check extends App {
 //   .foreach(println)
 
 
- val df1 = DataFrame(schema6, Array(row1, row2))
+ val df1 = DataFrame(schema6, Array(row1, row2)).withColumn("test_col", 5.toLong)
  val df2 = DataFrame(schema6, row1, row2)
 // val df3 = DataFrame(schema6, )
- println(df1)
+ println(df1.toString())
+ println(row1)
+ df1.show(1)
+ df1.printSchema
 
 
 

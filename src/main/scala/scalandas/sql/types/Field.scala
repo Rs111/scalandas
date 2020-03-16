@@ -13,7 +13,7 @@ class Field private[sql](name: String, position: Int, dataType: DataType, nullab
   def getDataType: DataType = dataType
   def getTypeAsString: String = dataType.typeName
 
-  //TODO add a nice print
+  override def toString: String = s"Field($name, $position, $dataType, $nullable)"
 }
 
 object Field {

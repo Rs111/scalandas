@@ -1,7 +1,7 @@
 package scalandas.sql
 
 import scalandas.sql.types.Schema
-import scalandas.sql.conversion.ImplicitConverters._
+import scalandas.sql.conversion.ImplicitConversion._
 
 class Row private[sql](values: Array[Any]) extends Serializable {
 
@@ -13,6 +13,8 @@ class Row private[sql](values: Array[Any]) extends Serializable {
 
   // descriptive
   def length: Int = this.values.length
+
+  override def toString: String = "Row" + values.mkString("(", ", ", ")")
 
   def map = ???
   def flatMap = ???
