@@ -30,7 +30,7 @@ private[sql] object ImplicitConversion {
     override def convert(value: Double): DataType = DataType.DoubleType
   }
 
-  implicit class GenericConverter[T : TypeRestriction](value: T) extends DataTypeConverter[T] {
+  class GenericConverter[T : TypeRestriction](value: T) extends DataTypeConverter[T] {
     override def convert(value: T): DataType = value match {
       case value: String => StringConverter.convert(value)
       case value: Int => IntegerConverter.convert(value)
